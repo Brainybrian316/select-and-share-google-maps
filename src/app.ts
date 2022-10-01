@@ -46,7 +46,7 @@ function searchAddressHandler(event: Event) {
 			loader.load().then(() => {
 				const map = new google.maps.Map(document.getElementById('map')! as HTMLElement, {
 					center: coordinates,
-					zoom: 8,
+					zoom: 16,
 				});
 				new google.maps.Marker({ position: coordinates, map: map });
 			});

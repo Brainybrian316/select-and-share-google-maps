@@ -1,33 +1,31 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
-module.exports = (env) => {
-	return {
-		mode: 'development',
-		entry: './src/app.ts',
-		output: {
-			filename: 'bundle.js',
-			path: path.resolve(__dirname, 'dist'),
-			publicPath: 'dist',
+module.exports = {
+	mode: 'development',
+	entry: './src/app.ts',
+	output: {
+		filename: 'bundle.js',
+		path: path.resolve(__dirname, 'dist'),
+		publicPath: '/dist/',
+	},
+	devServer: {
+		static: {
+			directory: path.join(__dirname, '/'),
 		},
-		module: {
-			rules: [
-				{
-					test: /\.tsx?$/,
-					use: 'ts-loader',
-					exclude: /node_modules/,
-				},
-			],
-		},
-		resolve: {
-			resolve: {
-				fallback: {
-					fs: false,
-				},
-				extensions: ['.ts', '.js'],
+	},
+	devtool: 'inline-source-map',
+	module: {
+		rules: [
+			{
+				test: /\.ts$/,
+				use: 'ts-loader',
+				exclude: /node_modules/,
 			},
-		},
-		devServer: {
-			contentBase: './dist',
-		},
-	};
+		],
+	},
+	resolve: {
+		extensions: ['.ts', '.js'],
+	},
+	plugins: [new Dotenv()],
 };
